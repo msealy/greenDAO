@@ -98,12 +98,13 @@ property>${property.javaType} ${property.propertyName}<#if property_has_next>, <
     }
 </#if>
 
-    public ${entity.className}(<#list entity.properties as
-property>${property.javaType} ${property.propertyName}<#if property_has_next>, </#if></#list>) {
-<#list entity.properties as property>
-        this.${property.propertyName} = ${property.propertyName};
-</#list>
-    }
+       public void initialize(<#list entity.properties as
+   property>${property.javaType} ${property.propertyName}<#if property_has_next>, </#if></#list>) {
+   <#list entity.properties as property>
+           this.${property.propertyName} = ${property.propertyName};
+   </#list>
+       }
+
 </#if>
 
 <#if entity.active>

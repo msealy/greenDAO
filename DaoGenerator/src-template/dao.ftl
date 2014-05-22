@@ -53,6 +53,8 @@ import ${additionalImport};
 
 </#if>
 import ${entity.javaPackage}.${entity.className};
+import ${entity.javaPackage}.models.${entity.className?substring(3)};
+
 <#if entity.protobuf>
 import ${entity.javaPackage}.${entity.className}.Builder;
 </#if>
@@ -198,7 +200,9 @@ as property>${property.columnName}<#if property_has_next>,</#if></#list>);");
 <#--
 ############################## readEntity non-protobuff, constructor ############################## 
 -->
-        ${entity.className} entity = new ${entity.className}( //
+        ${entity.className} entity = new ${entity.className?substring(3)}();
+
+        entity.initialize(
 <#list entity.properties as property>
             <#if !property.notNull>cursor.isNull(offset + ${property_index}) ? null : </#if><#if
             property.propertyType == "Byte">(byte) </#if><#if
@@ -212,7 +216,7 @@ as property>${property.columnName}<#if property_has_next>,</#if></#list>);");
 <#--
 ############################## readEntity non-protobuff, setters ############################## 
 -->
-        ${entity.className} entity = new ${entity.className}();
+        ${entity.className} entity = new ${entity.className?substring(3)}();
         readEntity(cursor, entity, offset);
         return entity;
 </#if>
